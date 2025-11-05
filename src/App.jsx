@@ -1,26 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 
-// The custom CSS block remains the same, providing transitions and keyframes.
 const customCss = `
   .flip-card-rotated {
     transform: rotateY(180deg);
   }
-  
+
   .card-face {
     transform: rotateY(180deg);
   }
 
   @keyframes zoomInFadeIn {
     0% {
-      transform: scaleX(0.1) scaleY(1); 
+      transform: scaleX(0.1) scaleY(1);
       opacity: 0;
     }
     50% {
-      transform: scaleX(1.1) scaleY(1.1); 
+      transform: scaleX(1.1) scaleY(1.1);
       opacity: 1;
     }
     100% {
-      transform: scaleX(1) scaleY(1); 
+      transform: scaleX(1) scaleY(1);
       opacity: 1;
     }
   }
@@ -69,18 +68,15 @@ const Card = ({ card, onClick }) => {
     ? "bg-green-700 pointer-events-none shadow-green-500/50"
     : "hover:scale-105 active:scale-95";
 
-  // UPDATED: Removed fixed w-N/h-N and replaced with 'aspect-square' 
-  // to ensure the card fills the available grid cell while remaining square.
   const cardContainerClasses = `
     aspect-square rounded-xl relative cursor-pointer
-    transition-transform duration-500 [transform-style:preserve-3d] 
+    transition-transform duration-500 [transform-style:preserve-3d]
     ${isFlipped ? "flip-card-rotated" : ""}
     ${isMatched ? matchedClasses : "shadow-[0_10px_20px_rgba(80,0,160,0.4)]"}
   `;
 
-  // Font size remains responsive based on available card space
   const faceClasses = `
-    absolute inset-0 flex items-center justify-center 
+    absolute inset-0 flex items-center justify-center
     bg-white rounded-xl shadow-2xl text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black
     [backface-visibility:hidden] transform card-face
   `;
@@ -89,7 +85,7 @@ const Card = ({ card, onClick }) => {
     absolute inset-0 bg-gradient-to-br from-indigo-700 to-purple-800
     rounded-xl shadow-2xl flex items-center justify-center
     text-white text-xl font-bold border-4 border-indigo-400
-    [backface-visibility:hidden] 
+    [backface-visibility:hidden]
   `;
 
   const handleClick = () => {
@@ -103,7 +99,7 @@ const Card = ({ card, onClick }) => {
       <div className={backClasses}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-300 animate-pulse" 
+          className="w-6 h-6 sm:w-7 sm:h-7 text-yellow-300 animate-pulse"
           viewBox="0 0 24 24"
           fill="currentColor"
         >
@@ -128,7 +124,6 @@ const App = () => {
   const totalPairs = cards.length / 2;
   const isGameWon = matchesFound === totalPairs && cards.length > 0;
 
-  // Timer logic
   useEffect(() => {
     if (isGameStarted && !isGameWon) {
       timerRef.current = setInterval(() => {
@@ -170,7 +165,6 @@ const App = () => {
     }
   };
 
-  // Match check logic
   useEffect(() => {
     if (flippedCards.length === 2) {
       setMoves((prevMoves) => prevMoves + 1);
@@ -185,12 +179,11 @@ const App = () => {
           const newMatches = prevMatches + 1;
 
           if (newMatches === totalPairs) {
-            setLockBoard(true); // Lock the board when game is won
+            setLockBoard(true);
           }
           return newMatches;
         });
 
-        // Mark matched cards
         setCards((prevCards) =>
           prevCards.map((card) =>
             card.content === first.content
@@ -204,7 +197,6 @@ const App = () => {
 
       if (!isMatch || matchesFound + 1 < totalPairs) {
         if (!isMatch) {
-          // If no match, flip cards back after 1 second
           setTimeout(() => {
             setCards((prevCards) =>
               prevCards.map((card) =>
@@ -217,7 +209,7 @@ const App = () => {
             setLockBoard(false);
           }, 1000);
         } else {
-          setLockBoard(false); // Unlock immediately after match
+          setLockBoard(false);
         }
       }
     }
@@ -262,16 +254,15 @@ const App = () => {
   const isButtonDisabled = lockBoard && !isGameWon;
 
   return (
-    // Main container ensures min-h-screen (100vh) and centers content vertically/horizontally
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-2 font-sans">
-      {/* Title */}
+      {}
       <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-500 mb-6 tracking-wider pt-4 drop-shadow-lg text-center leading-snug max-w-full px-2">
         ✨ Space Matcher ✨
       </h1>
 
-      {/* Game Content Container */}
+      {}
       <div className="w-full max-w-xl mx-auto flex flex-col items-center px-2 relative">
-        {/* Status Bar: Moves, Time, Pairs (on top) */}
+        {}
         <div className="flex justify-around w-full mb-6 p-3 bg-gray-800 border border-purple-600 rounded-2xl shadow-xl">
           <div className="text-base text-yellow-400 font-medium text-center">
             ➡️ Moves:{" "}
@@ -291,11 +282,10 @@ const App = () => {
           </div>
         </div>
 
-        {/* Card Grid Container (The Board) - Centered and Responsive */}
-        {/* UPDATED: Changed w-fit to w-full */}
+        {}
+        {}
         <div className="grid grid-cols-4 gap-2 md:gap-3 p-3 mx-auto w-full bg-gray-900 rounded-3xl shadow-[0_0_50px_rgba(168,85,247,0.5)] border-4 border-indigo-500/50 relative">
-          
-          {/* WIN OVERLAY (Absolute, centered, layered over the board) */}
+          {}
           {isGameWon && (
             <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-900/80 backdrop-blur-sm rounded-3xl">
               <div className="text-sm sm:text-base md:text-lg font-extrabold text-white p-3 sm:p-4 bg-gradient-to-r from-green-600 to-teal-500 rounded-xl text-center shadow-2xl shadow-green-400/80 border-4 border-white/50 zoom-in-fade-in max-w-[80%]">
@@ -313,7 +303,7 @@ const App = () => {
         <button
           onClick={resetGame}
           disabled={isButtonDisabled}
-          className={`mt-4 px-6 py-2 text-white text-md font-semibold rounded-full border-2 border-indigo-300 transition duration-300 transform 
+          className={`mt-4 px-6 py-2 text-white text-md font-semibold rounded-full border-2 border-indigo-300 transition duration-300 transform
             ${
               isButtonDisabled
                 ? "bg-gray-600 cursor-not-allowed"
