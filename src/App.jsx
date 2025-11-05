@@ -69,7 +69,7 @@ const Card = ({ card, onClick }) => {
     : "hover:scale-105 active:scale-95";
 
   const cardContainerClasses = `
-    w-14 h-14 sm:w-16 sm:h-16 lg:w-16 lg:h-16 rounded-xl relative cursor-pointer
+    w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 rounded-xl relative cursor-pointer
     transition-transform duration-500 [transform-style:preserve-3d]
     ${isFlipped ? "flip-card-rotated" : ""}
     ${isMatched ? matchedClasses : "shadow-[0_10px_20px_rgba(80,0,160,0.4)]"}
@@ -77,7 +77,7 @@ const Card = ({ card, onClick }) => {
 
   const faceClasses = `
     absolute inset-0 flex items-center justify-center
-    bg-white rounded-xl shadow-2xl text-2xl sm:text-3xl font-black
+    bg-white rounded-xl shadow-2xl text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black
     [backface-visibility:hidden] transform card-face
   `;
 
@@ -197,6 +197,7 @@ const App = () => {
 
       if (!isMatch || matchesFound + 1 < totalPairs) {
         if (!isMatch) {
+
           setTimeout(() => {
             setCards((prevCards) =>
               prevCards.map((card) =>
@@ -254,13 +255,17 @@ const App = () => {
   const isButtonDisabled = lockBoard && !isGameWon;
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gray-950 p-2 font-sans">
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-500 mb-4 tracking-wider pt-4 drop-shadow-lg">
+
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-950 p-2 font-sans">
+      {}
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-indigo-500 mb-6 tracking-wider pt-4 drop-shadow-lg text-center leading-snug max-w-full px-2">
         ✨ Space Matcher ✨
       </h1>
 
+      {}
       <div className="w-full max-w-xl mx-auto flex flex-col items-center px-2 relative">
-        <div className="flex justify-around w-full mb-3 p-3 bg-gray-800 border border-purple-600 rounded-2xl shadow-xl">
+        {}
+        <div className="flex justify-around w-full mb-6 p-3 bg-gray-800 border border-purple-600 rounded-2xl shadow-xl">
           <div className="text-base text-yellow-400 font-medium text-center">
             ➡️ Moves:{" "}
             <span className="font-extrabold text-white block">{moves}</span>
@@ -280,11 +285,11 @@ const App = () => {
         </div>
 
         {}
-        <div className="grid grid-cols-4 gap-2 p-3 mx-auto w-fit bg-gray-900 rounded-3xl shadow-[0_0_50px_rgba(168,85,247,0.5)] border-4 border-indigo-500/50 relative">
+        <div className="grid grid-cols-4 gap-2 md:gap-3 p-3 mx-auto w-fit bg-gray-900 rounded-3xl shadow-[0_0_50px_rgba(168,85,247,0.5)] border-4 border-indigo-500/50 relative">
           {}
           {isGameWon && (
             <div className="absolute inset-0 flex items-center justify-center z-10 bg-gray-900/80 backdrop-blur-sm rounded-3xl">
-              <div className="text-lg sm:text-xl font-extrabold text-white p-3 sm:p-4 bg-gradient-to-r from-green-600 to-teal-500 rounded-xl text-center shadow-2xl shadow-green-400/80 border-4 border-white/50 zoom-in-fade-in max-w-[80%]">
+              <div className="text-sm sm:text-base md:text-lg font-extrabold text-white p-3 sm:p-4 bg-gradient-to-r from-green-600 to-teal-500 rounded-xl text-center shadow-2xl shadow-green-400/80 border-4 border-white/50 zoom-in-fade-in max-w-[80%]">
                 🎉 SUCCESS! You Won in {moves} Moves and{" "}
                 {formatTime(timeElapsed)}! 🎉
               </div>
